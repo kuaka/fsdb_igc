@@ -6,7 +6,7 @@ The zip file is suitable for bulk uploading to airScore.
 
 
 Requirements:
-- Python 3
+- Python 3.6
 - lxml (install with 'pip install lxml')
 
 Usage: python fsdb_igc.py /path/to/fsdbfile.fsdb

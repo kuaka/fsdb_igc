@@ -53,7 +53,7 @@ def main(args):
             name = pilots[str(pil_id)].replace(" ", "_")
             if participant.xpath('FsFlightData'):
                 tracklog = participant.xpath('FsFlightData')[0].get('tracklog_filename')
-                print(f'{pil_id=} {name=} {tracklog=}')
+                print(f'pil_id={pil_id} name={name} tracklog={tracklog}')
                 if tracklog:
                     if len(tracklog) > 5:
                         _, extension = os.path.splitext(tracklog)
