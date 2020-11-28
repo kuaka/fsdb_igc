@@ -50,7 +50,7 @@ def main(args):
 
         for participant in task_participants[0]:
             pil_id = participant.get('id')
-            name = pilots[str(pil_id)].replace(" ", "_")
+            name = pilots[str(pil_id)].replace(" ", "_") + "_" + str(pil_id)
             if participant.xpath('FsFlightData'):
                 tracklog = participant.xpath('FsFlightData')[0].get('tracklog_filename')
                 print(f'pil_id={pil_id} name={name} tracklog={tracklog}')
