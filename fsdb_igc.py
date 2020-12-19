@@ -44,8 +44,8 @@ def main(args):
         if dir:
             source = os.path.join(path, source_dir)
         if not os.path.isdir(source):
-            print(f"{source} does not exist")
-            exit()
+            print(f"{source} does not exist. Skipping")
+            continue
         task_participants = task.xpath('FsParticipants')
 
         for participant in task_participants[0]:
@@ -53,13 +53,17 @@ def main(args):
             name = pilots[str(pil_id)].replace(" ", "_") + "_" + str(pil_id)
             if participant.xpath('FsFlightData'):
                 tracklog = participant.xpath('FsFlightData')[0].get('tracklog_filename')
-                print(f'pil_id={pil_id} name={name} tracklog={tracklog}')
                 if tracklog:
+                    print(f'pil_id={pil_id} name={name} tracklog={tracklog}')
                     if len(tracklog) > 5:
                         _, extension = os.path.splitext(tracklog)
                         out = os.path.join(task_destination, name + extension)
+                        if not os.path.isfile(os.path.join(source, tracklog)):
+                            print(f"{tracklog} does not exist. Skipping")
+                            continue
                         shutil.copy2(os.path.join(source, tracklog), out)
-
+                else:
+                    print(f"{name} does not have a tracklog in fsdb file.")
         shutil.make_archive(os.path.join(destination, source_dir), 'zip', task_destination)
 
 
